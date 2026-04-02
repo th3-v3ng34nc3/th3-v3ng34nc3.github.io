@@ -591,10 +591,13 @@ body::before {
 .ci-img img { width:52px; height:52px; object-fit:contain; border-radius:8px; }
 
 /* Org logos in timeline h4 */
+.tl-inner h4 .org-logo,
 .org-logo {
-  width:20px; height:20px; object-fit:contain;
-  border-radius:4px; margin-right:7px; vertical-align:middle;
-  display:inline-block;
+  width:20px !important; height:20px !important;
+  max-width:20px !important; max-height:20px !important;
+  object-fit:contain; border-radius:4px;
+  margin-right:7px; vertical-align:middle;
+  display:inline-block; flex-shrink:0;
 }
 .cert-name { font-size:13px; color:var(--text); font-family:var(--font-h); font-weight:600; }
 .cert-by { font-size:11px; color:var(--muted); margin-top:3px; font-family:var(--font-m); }
