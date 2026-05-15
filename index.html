@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Aditya Raj — Security Engineer</title>
+<title>Aditya Raj — Senior Security Engineer</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="Aditya Raj – Security Engineer | Cloud Security | Kubernetes | AppSec | DevSecOps">
+<meta name="description" content="Aditya Raj – Senior Security Engineer | Cloud Security | Kubernetes | AppSec | DevSecOps">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -13,9 +13,11 @@
 
 <div class="site-bg">
   <div class="grid-bg"></div>
+  <div class="aurora"></div>
   <div class="orb orb1"></div>
   <div class="orb orb2"></div>
   <div class="orb orb3"></div>
+  <div class="orb orb4"></div>
 </div>
 
 <div class="c-dot" id="cdot"></div>
@@ -75,12 +77,12 @@
         <div class="ln"><span>Raj</span></div>
       </h1>
       <div class="h-role">
-        <span class="role-title">Security Engineer</span>
+        <span class="role-title">Senior Security Engineer</span>
       </div>
       <div class="tw-wrap"><span class="tw" id="twEl"></span></div>
       <div class="h-btns">
         <a href="#contact" class="btn-p nl">Get In Touch <i class="fas fa-arrow-right"></i></a>
-        <a href="img/cv.html" class="btn-o" target="_blank">View CV</a>
+        <button class="btn-o" id="cvModalBtn">View CV</button>
         <a href="img/cv.pdf" class="btn-o" download>Download CV</a>
       </div>
       <div class="soc-row">
@@ -90,12 +92,14 @@
     </div>
 
     <div class="h-visual">
+      <div class="h-visual-glow"></div>
       <div class="orbit-ring or1"></div>
       <div class="orbit-ring or2"></div>
+      <div class="orbit-ring or3"></div>
       <div class="img-wrap">
         <img src="img/IMG_3728.jpg" alt="Aditya Raj">
       </div>
-      <div class="float-chip fc1"><i class="fas fa-shield-alt"></i>&nbsp;Security Engineer</div>
+      <div class="float-chip fc1"><i class="fas fa-shield-alt"></i>&nbsp;Senior Security Engineer</div>
       <div class="float-chip fc2"><i class="fas fa-dharmachakra"></i>&nbsp;Kubernetes Admin</div>
       <div class="float-chip fc3"><i class="fas fa-cloud"></i>&nbsp;Cloud Security</div>
     </div>
@@ -130,7 +134,7 @@
       <!-- Bio: left column, row 2 -->
       <div class="bento-card b-bio">
         <div class="b-label">/ about me</div>
-        <p>Security Engineer with <strong>3+ years</strong> of hands-on experience securing <strong>cloud-native infrastructure</strong>, Kubernetes clusters, and enterprise applications across multi-cloud environments. I design and operate end-to-end security postures that span AWS, Azure, and GCP — weaving together <strong>CNAPP, CSPM, CWPP</strong>, and AppSec frameworks into a coherent, compliance-driven strategy.</p>
+        <p>Senior Security Engineer with <strong>3+ years</strong> of hands-on experience securing <strong>cloud-native infrastructure</strong>, Kubernetes clusters, and enterprise applications across multi-cloud environments. I design and operate end-to-end security postures that span AWS, Azure, and GCP — weaving together <strong>CNAPP, CSPM, CWPP</strong>, and AppSec frameworks into a coherent, compliance-driven strategy.</p>
         <p style="margin-top:10px;">At <strong>AccuKnox</strong> I lead security assessment programs, architect cloud security controls aligned to <strong>ISO 27001, CIS, NIST, and SOC 2</strong>, and manage SIEM for real-time threat detection and incident response. I treat DevSecOps not as a checkbox but as a culture — embedding security gates into every CI/CD pipeline and container lifecycle.</p>
         <p style="margin-top:10px;">Outside work I build the <strong>Sandman</strong> suite: a unified security CLI, a full VAPT orchestration framework chaining 15 tools with CVSS × EPSS scoring, and a web reporting layer — because I believe the best security is the kind that ships.</p>
         <div class="b-quote">"न दैन्यं न पलायनम्" — No Begging, No Fleeing</div>
@@ -265,7 +269,7 @@
           <div class="tl-item">
             <div class="tl-inner">
               <span class="dt">Mar 2023 – Present</span>
-              <h3>Security Engineer</h3>
+              <h3>Senior Security Engineer</h3>
               <h4><img src="img/accuknox.webp" alt="AccuKnox" class="org-logo" width="20" height="20">AccuKnox</h4>
               <ul class="exp-ul">
                 <li>Developed and executed a robust security assessment program, mitigating vulnerabilities in critical IT systems.</li>
@@ -543,6 +547,195 @@
         </div>
       </div>
 
+
+      <!-- ── Sandmancer ── -->
+      <div class="proj-card rv">
+        <div class="term-head">
+          <div class="term-dots">
+            <span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span>
+          </div>
+          <div class="term-path">~/projects/<strong>sandmancer</strong></div>
+          <div class="proj-status"><span class="ps-dot"></span>ACTIVE · CLI</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tech-row">
+            <img src="https://cdn.simpleicons.org/python/3776AB"      title="Python"  alt="Python">
+            <img src="https://cdn.simpleicons.org/gnubash/4EAA25"     title="Shell"   alt="Shell">
+            <img src="https://cdn.simpleicons.org/linux/FCC624"       title="Linux"   alt="Linux">
+            <img src="https://cdn.simpleicons.org/docker/2496ED"      title="Docker"  alt="Docker">
+          </div>
+          <h3 class="proj-title">Sandmancer</h3>
+          <p class="proj-desc">
+            Advanced security assessment orchestration engine — an evolution of the Sandman suite.
+            Chains <mark>recon</mark>, <mark>enumeration</mark>, <mark>exploitation</mark>, and
+            <mark>post-exploitation</mark> modules into a single unified pipeline with
+            intelligent target prioritisation and risk scoring.
+          </p>
+          <div class="proj-feat">
+            <span>Recon Engine</span><span>Auto Exploit</span><span>Risk Scoring</span>
+            <span>Module Chain</span><span>Post-Exploit</span>
+          </div>
+          <div class="lang-block">
+            <div class="lang-bar">
+              <div class="lb-seg" style="--w:80%;--c:#3572A5" title="Python 80%"></div>
+              <div class="lb-seg" style="--w:14%;--c:#89e051" title="Shell 14%"></div>
+              <div class="lb-seg" style="--w:6%;--c:#384d54"  title="Other 6%"></div>
+            </div>
+            <div class="lang-leg">
+              <span><em style="background:#3572A5"></em>Python 80%</span>
+              <span><em style="background:#89e051"></em>Shell 14%</span>
+              <span><em style="background:#384d54"></em>Other 6%</span>
+            </div>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/th3-v3ng34nc3" target="_blank" class="plink">
+              <i class="fab fa-github"></i>View Source
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Sandman OSINT ── -->
+      <div class="proj-card rv">
+        <div class="term-head">
+          <div class="term-dots">
+            <span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span>
+          </div>
+          <div class="term-path">~/projects/<strong>sandman-osint</strong></div>
+          <div class="proj-status proj-status-osint"><span class="ps-dot ps-dot-osint"></span>ACTIVE · OSINT</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tech-row">
+            <img src="https://cdn.simpleicons.org/python/3776AB"      title="Python"  alt="Python">
+            <img src="https://cdn.simpleicons.org/gnubash/4EAA25"     title="Shell"   alt="Shell">
+            <img src="https://cdn.simpleicons.org/linux/FCC624"       title="Linux"   alt="Linux">
+            <img src="https://cdn.simpleicons.org/selenium/43B02A"    title="Selenium" alt="Selenium">
+          </div>
+          <h3 class="proj-title">Sandman OSINT</h3>
+          <p class="proj-desc">
+            Automated <mark>Open-Source Intelligence</mark> gathering framework — aggregates data from
+            public sources, APIs, and passive recon channels. Maps <mark>digital footprints</mark>,
+            enumerates exposed assets, and produces structured intelligence reports for
+            red-team and investigative operations.
+          </p>
+          <div class="proj-feat">
+            <span>Passive Recon</span><span>API Aggregation</span><span>Footprint Map</span>
+            <span>Asset Discovery</span><span>Intel Reports</span>
+          </div>
+          <div class="lang-block">
+            <div class="lang-bar">
+              <div class="lb-seg" style="--w:74%;--c:#3572A5" title="Python 74%"></div>
+              <div class="lb-seg" style="--w:20%;--c:#89e051" title="Shell 20%"></div>
+              <div class="lb-seg" style="--w:6%;--c:#555"     title="Other 6%"></div>
+            </div>
+            <div class="lang-leg">
+              <span><em style="background:#3572A5"></em>Python 74%</span>
+              <span><em style="background:#89e051"></em>Shell 20%</span>
+              <span><em style="background:#555"></em>Other 6%</span>
+            </div>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/th3-v3ng34nc3" target="_blank" class="plink plink-osint">
+              <i class="fab fa-github"></i>View Source
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Security Veda ── -->
+      <div class="proj-card rv">
+        <div class="term-head">
+          <div class="term-dots">
+            <span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span>
+          </div>
+          <div class="term-path">~/projects/<strong>security-veda</strong></div>
+          <div class="proj-status proj-status-web"><span class="ps-dot ps-dot-web"></span>LIVE · PLATFORM</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tech-row">
+            <img src="https://cdn.simpleicons.org/react/61DAFB"       title="React"      alt="React">
+            <img src="https://cdn.simpleicons.org/typescript/3178C6"  title="TypeScript" alt="TypeScript">
+            <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" title="Tailwind"   alt="Tailwind">
+            <img src="https://cdn.simpleicons.org/nextdotjs/e2e8f8"   title="Next.js"    alt="Next.js">
+          </div>
+          <h3 class="proj-title">Security Veda</h3>
+          <p class="proj-desc">
+            A curated <mark>security knowledge platform</mark> — "Veda" (Sanskrit: knowledge). Structured
+            learning paths covering <mark>cloud security</mark>, <mark>Kubernetes hardening</mark>,
+            DevSecOps, penetration testing, and compliance frameworks. Interactive labs,
+            cheatsheets, and real-world case studies.
+          </p>
+          <div class="proj-feat">
+            <span>Learning Paths</span><span>Interactive Labs</span><span>Cheatsheets</span>
+            <span>Case Studies</span><span>Compliance Maps</span>
+          </div>
+          <div class="lang-block">
+            <div class="lang-bar">
+              <div class="lb-seg" style="--w:60%;--c:#2b7489" title="TypeScript 60%"></div>
+              <div class="lb-seg" style="--w:30%;--c:#563d7c" title="CSS 30%"></div>
+              <div class="lb-seg" style="--w:10%;--c:#e34c26" title="HTML 10%"></div>
+            </div>
+            <div class="lang-leg">
+              <span><em style="background:#2b7489"></em>TypeScript 60%</span>
+              <span><em style="background:#563d7c"></em>CSS 30%</span>
+              <span><em style="background:#e34c26"></em>HTML 10%</span>
+            </div>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/th3-v3ng34nc3" target="_blank" class="plink plink-web">
+              <i class="fab fa-github"></i>View Source
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SE Training Plan App ── -->
+      <div class="proj-card rv">
+        <div class="term-head">
+          <div class="term-dots">
+            <span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span>
+          </div>
+          <div class="term-path">~/projects/<strong>se-training-plan</strong></div>
+          <div class="proj-status proj-status-live"><span class="ps-dot ps-dot-live"></span>LIVE · WEB APP</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-tech-row">
+            <img src="https://cdn.simpleicons.org/react/61DAFB"       title="React"      alt="React">
+            <img src="https://cdn.simpleicons.org/typescript/3178C6"  title="TypeScript" alt="TypeScript">
+            <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" title="Tailwind"   alt="Tailwind">
+            <img src="https://cdn.simpleicons.org/vercel/e2e8f8"      title="Vercel"     alt="Vercel">
+          </div>
+          <h3 class="proj-title">SE Training Plan App</h3>
+          <p class="proj-desc">
+            A structured <mark>Security Engineering training tracker</mark> — helps security professionals
+            plan, track, and measure skill development across domains. Features goal-setting,
+            <mark>progress dashboards</mark>, resource linking, and certification roadmaps
+            tailored to real-world SE career paths.
+          </p>
+          <div class="proj-feat">
+            <span>Goal Tracking</span><span>Progress Dashboard</span><span>Cert Roadmaps</span>
+            <span>Skill Matrix</span><span>Resource Hub</span>
+          </div>
+          <div class="lang-block">
+            <div class="lang-bar">
+              <div class="lb-seg" style="--w:68%;--c:#2b7489" title="TypeScript 68%"></div>
+              <div class="lb-seg" style="--w:22%;--c:#563d7c" title="CSS 22%"></div>
+              <div class="lb-seg" style="--w:10%;--c:#f1e05a" title="JavaScript 10%"></div>
+            </div>
+            <div class="lang-leg">
+              <span><em style="background:#2b7489"></em>TypeScript 68%</span>
+              <span><em style="background:#563d7c"></em>CSS 22%</span>
+              <span><em style="background:#f1e05a"></em>JS 10%</span>
+            </div>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/th3-v3ng34nc3" target="_blank" class="plink plink-live">
+              <i class="fas fa-external-link-alt"></i>Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -589,6 +782,30 @@
     </div>
   </div>
 </section>
+
+<!-- ═══════════════════════════════════════
+     CV MODAL
+═══════════════════════════════════════ -->
+<div class="cv-modal-overlay" id="cvModalOverlay">
+  <div class="cv-modal" role="dialog" aria-label="Curriculum Vitae">
+    <div class="cv-modal-bar">
+      <div class="term-dots">
+        <span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span>
+      </div>
+      <div class="cv-modal-title">~/docs/<span>aditya-raj-cv.html</span></div>
+      <button class="cv-modal-close" id="cvModalClose" title="Close"><i class="fas fa-times"></i></button>
+    </div>
+    <iframe class="cv-modal-iframe" id="cvModalFrame" src="" title="Aditya Raj — CV" loading="lazy"></iframe>
+    <div class="cv-modal-footer">
+      <a href="img/cv.html" target="_blank" class="btn-o" style="padding:9px 20px;font-size:13px;">
+        <i class="fas fa-external-link-alt"></i>&nbsp; Open in New Tab
+      </a>
+      <a href="img/cv.pdf" download class="btn-o" style="padding:9px 20px;font-size:13px;">
+        <i class="fas fa-download"></i>&nbsp; Download PDF
+      </a>
+    </div>
+  </div>
+</div>
 
 <button id="btt" title="Back to top"><i class="fas fa-arrow-up"></i></button>
 

@@ -43,14 +43,17 @@ a { color: var(--accent); text-decoration: none; }
 /* ── PAGE ── */
 .page {
   width: 794px;
-  height: 1123px;
+  min-height: 1123px;
   margin: 0 auto;
   background: var(--dark2);
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   border-left: 3px solid var(--accent);
 }
+.proj-list { display: flex; flex-direction: column; gap: 5px; max-height: none; }
+.main { overflow: visible; }
+.body { overflow: visible; }
 
 /* ══════════════════════════════
    HEADER
@@ -491,7 +494,14 @@ body.light .ftr { background: #e8edf5; }
 }
 .mode-btn:hover { background: var(--accent); color: #fff; }
 
-@media screen { body { padding: 10px; } }
+@media screen { body { padding: 10px; min-height: 100vh; } }
+@media screen and (max-width: 820px) {
+  .page { width: 100%; min-width: 0; }
+  .body { grid-template-columns: 1fr; }
+  .side { border-left: none; border-top: 1px solid var(--border); }
+  .hdr { grid-template-columns: 72px 1fr; }
+  .hdr-contacts { grid-column: span 2; border-left: none; border-top: 1px solid var(--border); flex-direction: row; flex-wrap: wrap; gap: 8px; }
+}
 @media print {
   body { padding: 0; }
   .page { margin: 0; }
@@ -508,7 +518,7 @@ body.light .ftr { background: #e8edf5; }
     <div class="hdr-mono">AR</div>
     <div class="hdr-name">
       <h1>Aditya <em>Raj</em></h1>
-      <div class="role">Security Engineer</div>
+      <div class="role">Senior Security Engineer</div>
     </div>
     <div class="hdr-contacts">
       <span><i class="fas fa-phone"></i>+91 6207338299</span>
@@ -521,7 +531,7 @@ body.light .ftr { background: #e8edf5; }
 
   <!-- BIO + STATS -->
   <div class="bio-strip">
-    <div class="bio-text">Security Engineer with <strong>3+ years of hands-on experience</strong> securing cloud-native and Kubernetes environments across <strong>multi-cloud, hybrid, on-premise, and private cloud</strong> infrastructures. Specialising in end-to-end security architectures spanning <strong>CNAPP, CSPM, CWPP, KSPM, and AppSec</strong>. Experienced in translating complex threat landscapes into actionable security programmes — from vulnerability identification and compliance alignment to incident response and DevSecOps pipeline integration.</div>
+    <div class="bio-text">Senior Security Engineer with <strong>3+ years of hands-on experience</strong> securing cloud-native and Kubernetes environments across <strong>multi-cloud, hybrid, on-premise, and private cloud</strong> infrastructures. Specialising in end-to-end security architectures spanning <strong>CNAPP, CSPM, CWPP, KSPM, and AppSec</strong>. Experienced in translating complex threat landscapes into actionable security programmes — from vulnerability identification and compliance alignment to incident response and DevSecOps pipeline integration.</div>
   </div>
 
   <!-- BODY -->
@@ -537,7 +547,7 @@ body.light .ftr { background: #e8edf5; }
           <div class="tl-item">
             <div class="tl-dot"></div>
             <div class="tl-card">
-              <div class="tl-head"><h3>Security Engineer</h3><span class="dt">03-2023 – Present</span></div>
+              <div class="tl-head"><h3>Senior Security Engineer</h3><span class="dt">03-2023 – Present</span></div>
               <div class="tl-co">AccuKnox</div>
               <ul>
                 <li>Developed and executed a robust security assessment program, mitigating vulnerabilities in critical IT systems.</li>
@@ -570,14 +580,14 @@ body.light .ftr { background: #e8edf5; }
             <div class="proj-num">01</div>
             <div class="proj-body">
               <div class="proj-head"><h4>Sandman</h4><a class="pl" href="https://github.com/th3-v3ng34nc3/sandman" target="_blank">github.com/th3-v3ng34nc3/sandman</a></div>
-              <p>Unified security scanning CLI (Go) wrapping Trivy, Opengrep, OWASP ZAP &amp; ClamAV. Covers image, secrets, SAST, DAST, IaC, and malware scans. Supports Linux, Windows, Docker &amp; CI/CD.</p>
+              <p>Unified security scanning CLI wrapping Trivy, Opengrep, OWASP ZAP &amp; ClamAV. Covers image, secrets, SAST, DAST, IaC, and malware scans. Supports Linux, Windows, Docker &amp; CI/CD.</p>
             </div>
           </div>
           <div class="proj">
             <div class="proj-num">02</div>
             <div class="proj-body">
               <div class="proj-head"><h4>Sandman Web</h4><a class="pl" href="https://sandman-web-seven.vercel.app/" target="_blank">sandman-web-seven.vercel.app</a></div>
-              <p>Web-based VAPT Reporter — streamlines creation, management, and delivery of Vulnerability Assessment and Penetration Testing reports.</p>
+              <p>Web-based VAPT Reporter — streamlines creation, management, and delivery of Vulnerability Assessment and Penetration Testing reports. Built with Next.js and TypeScript.</p>
             </div>
           </div>
           <div class="proj">
@@ -585,6 +595,34 @@ body.light .ftr { background: #e8edf5; }
             <div class="proj-body">
               <div class="proj-head"><h4>Sandman PT</h4><a class="pl" href="https://github.com/th3-v3ng34nc3/sandman-pt" target="_blank">github.com/th3-v3ng34nc3/sandman-pt</a></div>
               <p>Automated VAPT orchestration framework. Chains 15 industry-standard tools into a single pipeline, correlates findings, and scores them with CVSS × EPSS risk scoring.</p>
+            </div>
+          </div>
+          <div class="proj">
+            <div class="proj-num">04</div>
+            <div class="proj-body">
+              <div class="proj-head"><h4>Sandmancer</h4><a class="pl" href="https://github.com/th3-v3ng34nc3" target="_blank">github.com/th3-v3ng34nc3</a></div>
+              <p>Advanced security assessment orchestration engine. Chains recon, enumeration, exploitation and post-exploitation modules with intelligent target prioritisation and risk scoring.</p>
+            </div>
+          </div>
+          <div class="proj">
+            <div class="proj-num">05</div>
+            <div class="proj-body">
+              <div class="proj-head"><h4>Sandman OSINT</h4><a class="pl" href="https://github.com/th3-v3ng34nc3" target="_blank">github.com/th3-v3ng34nc3</a></div>
+              <p>Automated OSINT gathering framework — aggregates data from public sources and APIs, maps digital footprints, and produces structured intelligence reports for red-team operations.</p>
+            </div>
+          </div>
+          <div class="proj">
+            <div class="proj-num">06</div>
+            <div class="proj-body">
+              <div class="proj-head"><h4>Security Veda</h4><a class="pl" href="https://github.com/th3-v3ng34nc3" target="_blank">github.com/th3-v3ng34nc3</a></div>
+              <p>Curated security knowledge platform (Veda = knowledge). Structured learning paths for cloud security, Kubernetes hardening, DevSecOps, pen testing, and compliance frameworks.</p>
+            </div>
+          </div>
+          <div class="proj">
+            <div class="proj-num">07</div>
+            <div class="proj-body">
+              <div class="proj-head"><h4>SE Training Plan App</h4><a class="pl" href="https://github.com/th3-v3ng34nc3" target="_blank">github.com/th3-v3ng34nc3</a></div>
+              <p>Security Engineering training tracker — goal-setting, progress dashboards, certification roadmaps, and skill matrices tailored to real-world SE career paths.</p>
             </div>
           </div>
         </div>
@@ -684,7 +722,7 @@ body.light .ftr { background: #e8edf5; }
 
   <!-- FOOTER -->
   <div class="ftr">
-    <span>Aditya Raj — Security Engineer</span>
+    <span>Aditya Raj — Senior Security Engineer</span>
     <div class="dot"></div>
     <span>adityasinghusa1@gmail.com</span>
   </div>

@@ -39,7 +39,7 @@ window.addEventListener('load',()=>{
    TYPEWRITER
 ════════════════════════════════════════════ */
 (()=>{
-  const phrases=['Security Engineer','Cloud Security Expert','Kubernetes Administrator','DevSecOps Engineer','Penetration Tester'];
+  const phrases=['Senior Security Engineer','Cloud Security Expert','Kubernetes Administrator','DevSecOps Engineer','Penetration Tester'];
   const el=document.getElementById('twEl');
   let pi=0,ci=0,del=false;
   function run(){
@@ -121,7 +121,6 @@ if(modeBtn && modeIcon) {
   modeBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark');
     document.body.classList.toggle('light');
-    
     if (document.body.classList.contains('light')) {
       modeIcon.classList.replace('fa-sun', 'fa-moon');
     } else {
@@ -129,3 +128,29 @@ if(modeBtn && modeIcon) {
     }
   });
 }
+
+/* ════════════════════════════════════════════
+   CV MODAL
+════════════════════════════════════════════ */
+(()=>{
+  const overlay = document.getElementById('cvModalOverlay');
+  const frame   = document.getElementById('cvModalFrame');
+  const closeBtn= document.getElementById('cvModalClose');
+  const openBtn = document.getElementById('cvModalBtn');
+  let loaded = false;
+
+  function openModal(){
+    if(!loaded){ frame.src = 'img/cv.html'; loaded = true; }
+    overlay.classList.add('open');
+    document.body.classList.add('no-scroll');
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.classList.remove('no-scroll');
+  }
+
+  if(openBtn)  openBtn.addEventListener('click', openModal);
+  if(closeBtn) closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+})();
