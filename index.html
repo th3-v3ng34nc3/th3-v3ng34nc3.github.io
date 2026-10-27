@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>th3-v3ng34nc3 — Security Build</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Aditya Raj – Senior Security Engineer | Cloud Security | DevSecOps">
+
+<!-- Resource hints — open connections to the external origins early so
+     the fonts/icons/libraries below don't each pay a fresh DNS+TLS
+     handshake once their <link>/<script> tag is actually reached. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preload" as="image" href="img/IMG_3728.jpg" fetchpriority="high">
+
+<!-- FontAwesome is only needed for icon glyphs sprinkled through the page
+     — it shouldn't block first paint. Loaded as print-media (non-render-
+     blocking) then swapped to all media once fetched; noscript covers the
+     no-JS case. -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Spatial cursor -->
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- Boot -->
+<div id="boot">
+  <div class="boot-frame">
+    <div class="boot-pct" id="bootPct">0%</div>
+    <div class="boot-mark">UNIT // AR-01 — CALIBRATING SPATIAL FIELD</div>
+  </div>
+</div>
+
+<!-- Spatial background -->
+<canvas id="bgGL"></canvas>
+<div class="bg-blueprint"></div>
+<div class="aurora">
+  <span class="aurora-blob b1"></span>
+  <span class="aurora-blob b2"></span>
+  <span class="aurora-blob b3"></span>
+  <span class="aurora-blob b4"></span>
+  <span class="aurora-blob b5"></span>
+</div>
+<div class="bg-glow"></div>
+<div class="bg-vignette"></div>
+<div class="bg-noise"></div>
+
+<nav class="navdock">
+  <a href="#hero" data-label="INIT" class="active"></a>
+  <a href="#spec" data-label="SPEC"></a>
+  <a href="#array" data-label="ARRAY"></a>
+  <a href="#log" data-label="LOG"></a>
+  <a href="#build" data-label="BUILD"></a>
+  <a href="#commend" data-label="COMMEND"></a>
+  <a href="#uplink" data-label="UPLINK"></a>
+</nav>
+
+<!-- Framed shell — the whole app sits as one rounded glass card floating
+     over the fixed 3D/aurora background, which stays untouched outside it. -->
+<div class="app-frame">
+
+<!-- Hero zone — the photo + 3D aura now live here as one absolutely
+     positioned background layer behind the header/shlok/ticker AND the
+     hero text, instead of starting only below them. Nothing about the
+     Three.js scene logic changes, it's just reparented one level up so
+     its box spans the whole zone (inset:0 of this wrapper). -->
+<div class="hero-zone">
+
+  <div class="hero-stage">
+    <canvas class="hero-aura-canvas" id="heroAura"></canvas>
+    <div class="hero-photo-glow"></div>
+    <div class="hero-photo-wrap">
+      <img src="img/IMG_3728.jpg" alt="Aditya Raj" loading="eager" fetchpriority="high">
+      <div class="hero-photo-duo"></div>
+      <div class="hero-photo-fade"></div>
+    </div>
+    <div class="hero-chip chip-b glass"><i class="fas fa-crosshairs"></i>TOP 1% — TRYHACKME</div>
+    <div class="hero-chip chip-c glass"><i class="fas fa-shield-alt"></i>3+ YRS IN THE FIELD</div>
+  </div>
+
+  <!-- Chrome scrim — a dark fade sitting between the photo and the nav/
+       shlok/ticker, so that chrome stays legible even where the photo
+       underneath is bright (sky, light jacket), not just over the dark
+       parts. Fades out before the open hero-photo area below it. -->
+  <div class="hero-chrome-scrim"></div>
+
+  <header class="glassnav glass">
+    <a href="#hero" class="gn-logo"><span class="gn-mark"></span>TH3-V3NG34NC3</a>
+    <nav class="gn-links">
+      <a href="#spec">Spec</a>
+      <a href="#array">Array</a>
+      <a href="#log">Log</a>
+      <a href="#build">Build</a>
+      <a href="#commend">Commend</a>
+      <a href="#uplink">Uplink</a>
+    </nav>
+    <div class="gn-right">
+      <div class="gn-chip"><span class="dotlive"></span><span id="clock">00:00:00</span></div>
+    </div>
+  </header>
+
+  <!-- Core directive, promoted to a masthead heading sitting right under
+       the nav bar — rendered in a burning red/orange gradient so it reads
+       as a lit inscription. -->
+  <div class="shlok-mast">
+    <span class="deva-fire">न दैन्यं न पलायनम्</span>
+    <span class="shlok-sub">No Begging, No Fleeing</span>
+  </div>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-grid">
+      <div class="hero-eyebrow"><span class="pip"></span> Autonomous Security Unit · Build 2026</div>
+      <h1 class="hero-name">
+        <span class="ln1">ADITYA</span><br>
+        <span class="ln2">R<span class="hl">AJ</span></span>
+      </h1>
+      <div class="hero-role"><span id="typedRole"></span></div>
+      <p class="hero-tag">Securing cloud-native, hybrid &amp; multi-cloud infrastructure across AWS · Azure · GCP — Kubernetes security, DevSecOps, application security, and the hunt.</p>
+
+      <div class="hero-actions">
+        <a href="#array" class="bx bx-p" onclick="document.getElementById('array').scrollIntoView({behavior:'smooth'});return false">Run Diagnostics</a>
+        <a href="#uplink" class="bx bx-s" onclick="document.getElementById('uplink').scrollIntoView({behavior:'smooth'});return false">Open Channel</a>
+      </div>
+
+      <div class="hero-social">
+        <a href="https://github.com/th3-v3ng34nc3" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/th3-v3ng34nc3/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://tryhackme.com/p/th3-v3ng34nc3" target="_blank" title="TryHackMe"><i class="fas fa-shield-alt"></i></a>
+        <a href="img/cv.html" target="_blank" title="CV"><i class="fas fa-file-alt"></i></a>
+      </div>
+    </div>
+
+    <div class="hero-scroll"><span class="ln"></span>Scroll to explore</div>
+  </section>
+
+</div><!-- /.hero-zone -->
+
+<main id="deck">
+
+  <!-- ═══════════════ SPEC SHEET ═══════════════ -->
+  <section class="sx" id="spec">
+    <span class="sx-idx">01</span>
+    <div class="sx-tag">Unit Spec</div>
+    <h2 class="sx-h">Operator <em>Readout</em></h2>
+    <p class="sx-p">Everything on record about the build behind the handle.</p>
+
+    <div class="spec-grid glass">
+      <div class="spec-body">
+        <div class="spec-row">
+          <div class="spec-label">Profile</div>
+          <div class="spec-val">Senior Security Engineer with <strong>3+ years</strong> hunting through cloud-native, hybrid, and on-premise infrastructure — multi-cloud (<strong>AWS, Azure, GCP</strong>), Kubernetes clusters, and enterprise applications. Architecting end-to-end security postures weaving <strong>CNAPP, CSPM, CWPP, KSPM</strong>, and AppSec into a coherent, compliance-driven strategy.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-label">Current Post</div>
+          <div class="spec-val">At <strong>AccuKnox</strong> — leading security assessment programs, managing SIEM for real-time threat detection, and architecting cloud security controls aligned to <strong>ISO 27001, CIS, NIST, and SOC 2</strong>. Built an automated compliance engine that cut manual audit effort by <strong>80%</strong> across 200+ systems.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-label">Side Build</div>
+          <div class="spec-val">Forging the <strong>Sandman</strong> suite outside work — a unified security CLI and a full VAPT orchestration framework chaining 15 tools with CVSS × EPSS scoring.
+            <div class="spec-quote">"न दैन्यं न पलायनम्" — No Begging, No Fleeing</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-side">
+        <div class="scan-wrap">
+          <div class="scan-photo">
+            <img src="img/IMG_3836.jpg" alt="Aditya Raj" loading="lazy">
+            <span class="scan-corner tl"></span>
+            <span class="scan-corner tr"></span>
+            <span class="scan-corner bl"></span>
+            <span class="scan-corner br"></span>
+            <div class="scan-sweep"></div>
+          </div>
+          <div class="scan-id"><span class="dotlive"></span>SCAN // TH3-V3NG34NC3</div>
+        </div>
+
+        <div class="stat-list glass">
+          <div class="stat-row"><span class="v" data-count="3" data-suffix="+">0</span><span class="l">Years Active</span></div>
+          <div class="stat-row"><span class="v" data-count="3">0</span><span class="l">Certifications</span></div>
+          <div class="stat-row"><span class="v" data-count="30" data-suffix="+">0</span><span class="l">Tools Wielded</span></div>
+          <div class="stat-row"><span class="v">1%</span><span class="l">Top — TryHackMe</span></div>
+        </div>
+
+        <div class="spec-tags">
+          <span>Cloud Native</span><span>Kubernetes</span><span>DevSecOps</span>
+          <span>AppSec</span><span>CNAPP</span><span>Compliance</span>
+          <span>Pentest</span><span>SIEM</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ NEURAL ARRAY (skills, WebGL) ═══════════════ -->
+  <section class="sx" id="array">
+    <span class="sx-idx">02</span>
+    <div class="arr-head">
+      <div class="arr-bot"><dotlottie-wc src="https://assets-v2.lottiefiles.com/a/431279d2-118a-11ee-afa8-f7fbc4c05a63/bsM1mDTFOD.lottie" autoplay loop></dotlottie-wc></div>
+      <div>
+        <div class="sx-tag">Neural Array</div>
+        <h2 class="sx-h" style="margin-bottom:0">Weapons <em>Cluster</em></h2>
+      </div>
+    </div>
+    <p class="sx-p">A live orbiting cluster — drag to rotate, filter to isolate.</p>
+
+    <div class="arr-filters">
+      <button class="arr-fb active" data-f="all">ALL</button>
+      <button class="arr-fb" data-f="cloud">CLOUD</button>
+      <button class="arr-fb" data-f="tools">TOOLS</button>
+      <button class="arr-fb" data-f="core">CORE</button>
+    </div>
+
+    <div class="arr-stage" id="arrStage"><canvas id="arrCanvas"></canvas></div>
+    <p class="arr-hint">drag to orbit</p>
+  </section>
+
+  <!-- ═══════════════ FLIGHT LOG (timeline) ═══════════════ -->
+  <section class="sx" id="log">
+    <span class="sx-idx">03</span>
+    <div class="sx-tag">Flight Log</div>
+    <h2 class="sx-h">Path of the <em>Build</em></h2>
+    <p class="sx-p">Three tracks, apprentice to architect — education, experience and certification, kept separate.</p>
+
+    <div class="log-cols">
+      <div class="log-col glass is-edu">
+        <div class="log-col-h"><i class="fas fa-graduation-cap"></i> Education</div>
+        <div class="log">
+          <div class="log-spine"></div>
+          <div class="log-row">
+            <span class="log-dot"></span>
+            <div class="log-top"><img loading="lazy" src="img/indian-public-school.jpg" class="log-logo" alt="Indian Public School"><span class="log-date">2013 – 2017</span></div>
+            <h4>Secondary School</h4><h5>Indian Public School, Hajipur</h5>
+          </div>
+          <div class="log-row">
+            <span class="log-dot"></span>
+            <div class="log-top"><img loading="lazy" src="img/patna-central-school.jpg" class="log-logo" alt="Patna Central School"><span class="log-date">2017 – 2019</span></div>
+            <h4>Senior Secondary School</h4><h5>Patna Central School, Patna</h5>
+          </div>
+          <div class="log-row">
+            <span class="log-dot"></span>
+            <div class="log-top"><img loading="lazy" src="img/lpu.png" class="log-logo" alt="LPU"><span class="log-date">2019 – 2023</span></div>
+            <h4>B.Tech — CS &amp; Engineering</h4><h5>Lovely Professional University, Phagwara · Minors: Cyber Security</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-col glass is-exp">
+        <div class="log-col-h"><i class="fas fa-briefcase"></i> Experience</div>
+        <div class="log">
+          <div class="log-spine"></div>
+          <div class="log-row">
+            <span class="log-dot"></span>
+            <div class="log-top"><div class="log-icon"><i class="fas fa-briefcase"></i></div><span class="log-date">Jan – Jun 2022</span></div>
+            <h4>AppSec Intern</h4><h5>CyberXplore Pvt Ltd</h5>
+            <ul>
+              <li>Web application, network &amp; Android penetration testing</li>
+              <li>Prepared detailed pentest reports of findings</li>
+            </ul>
+          </div>
+          <div class="log-row">
+            <span class="log-dot"></span>
+            <div class="log-top"><img loading="lazy" src="img/accuknox.webp" class="log-logo" alt="AccuKnox"><span class="log-date">Mar 2023 – Present</span></div>
+            <h4>Senior Security Engineer</h4><h5>AccuKnox</h5>
+            <ul>
+              <li>Security assessment program mitigating vulnerabilities in critical IT systems</li>
+              <li>Managed SIEM for real-time threat detection &amp; incident response</li>
+              <li>Cloud security controls aligned to ISO 27001, CIS, NIST, SOC 2</li>
+              <li>Automated compliance engine (CIS &amp; STIG) — cut manual audit effort 80% across 200+ systems</li>
+              <li>CNAPP for multi-cloud &amp; Kubernetes security posture management</li>
+              <li>Operationalised RBI CSF, SAMA CSF, SEBI CSCRF &amp; DPDP into the CSPM product</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="log-col glass is-cert">
+        <div class="log-col-h"><i class="fas fa-certificate"></i> Certifications</div>
+        <div class="log">
+          <div class="log-spine"></div>
+          <div class="log-row">
+            <span class="log-dot"></span>
+            <div class="log-top"><div class="log-icon"><i class="fas fa-shield-alt"></i></div><span class="log-date">Jul 2021 – Present</span></div>
+            <h4>eJPT — Junior Penetration Tester</h4><h5>eLearnSecurity</h5>
+          </div>
+          <div class="log-row">
+            <span class="log-dot"></span>
+            <div class="log-top"><div class="log-icon"><i class="fas fa-user-secret"></i></div><span class="log-date">Mar 2022 – Mar 2025</span></div>
+            <h4>C|EH — Certified Ethical Hacker</h4><h5>EC-Council</h5>
+          </div>
+          <div class="log-row">
+            <span class="log-dot"></span>
+            <div class="log-top"><div class="log-icon"><i class="fas fa-dharmachakra"></i></div><span class="log-date">Oct 2023</span></div>
+            <h4>CKA — Certified Kubernetes Administrator</h4><h5>Linux Foundation</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ BUILD LOG (3D carousel) ═══════════════ -->
+  <section class="sx" id="build">
+    <span class="sx-idx">04</span>
+    <div class="sx-tag">Build Log</div>
+    <h2 class="sx-h">Open <em>Source</em> Arsenal</h2>
+    <p class="sx-p">Seven builds, chained together in the dark.</p>
+
+    <div class="car-stage" id="carStage">
+      <div class="car-ring" id="carRing">
+        <div class="car-panel">
+          <div class="car-head"><span class="car-d"></span><span class="car-n">sandman</span><span class="car-b">ACTIVE</span></div>
+          <div class="car-body">
+            <div class="car-tech"><img src="https://cdn.simpleicons.org/python/3776AB"><img src="https://cdn.simpleicons.org/gnubash/4EAA25"><img src="https://cdn.simpleicons.org/docker/2496ED"></div>
+            <h4>Sandman</h4>
+            <p>Unified security scanning CLI — Trivy, Opengrep, OWASP ZAP, ClamAV. SAST, DAST, IaC, malware.</p>
+            <a href="https://github.com/th3-v3ng34nc3/sandman" target="_blank" class="car-l"><i class="fab fa-github"></i> Source</a>
+          </div>
+        </div>
+        <div class="car-panel">
+          <div class="car-head"><span class="car-d"></span><span class="car-n">sandman-web</span><span class="car-b live">LIVE</span></div>
+          <div class="car-body">
+            <div class="car-tech"><img src="https://cdn.simpleicons.org/typescript/3178C6"><img src="https://cdn.simpleicons.org/react/61DAFB"><img src="https://cdn.simpleicons.org/nextdotjs/e2e8f8"></div>
+            <h4>Sandman Web</h4>
+            <p>VAPT Reporter — streamlined report creation &amp; delivery. Next.js platform.</p>
+            <a href="https://sandman-web-seven.vercel.app/" target="_blank" class="car-l"><i class="fas fa-external-link-alt"></i> Demo</a>
+          </div>
+        </div>
+        <div class="car-panel">
+          <div class="car-head"><span class="car-d"></span><span class="car-n">sandman-pt</span><span class="car-b">PRIVATE</span></div>
+          <div class="car-body">
+            <div class="car-tech"><img src="https://cdn.simpleicons.org/python/3776AB"><img src="https://cdn.simpleicons.org/gnubash/4EAA25"><img src="https://cdn.simpleicons.org/docker/2496ED"></div>
+            <h4>Sandman PT</h4>
+            <p>Automated VAPT orchestration chaining 15 tools, CVSS × EPSS scoring.</p>
+            <a href="https://github.com/th3-v3ng34nc3/sandman-pt" target="_blank" class="car-l"><i class="fab fa-github"></i> Source</a>
+          </div>
+        </div>
+        <div class="car-panel">
+          <div class="car-head"><span class="car-d"></span><span class="car-n">sandmancer</span><span class="car-b">CLI</span></div>
+          <div class="car-body">
+            <div class="car-tech"><img src="https://cdn.simpleicons.org/python/3776AB"><img src="https://cdn.simpleicons.org/gnubash/4EAA25"><img src="https://cdn.simpleicons.org/docker/2496ED"></div>
+            <h4>Sandmancer</h4>
+            <p>Recon, enumeration, exploitation — intelligent prioritisation.</p>
+            <a href="https://github.com/th3-v3ng34nc3" target="_blank" class="car-l"><i class="fab fa-github"></i> Source</a>
+          </div>
+        </div>
+        <div class="car-panel">
+          <div class="car-head"><span class="car-d"></span><span class="car-n">sandman-osint</span><span class="car-b">OSINT</span></div>
+          <div class="car-body">
+            <div class="car-tech"><img src="https://cdn.simpleicons.org/python/3776AB"><img src="https://cdn.simpleicons.org/gnubash/4EAA25"><img src="https://cdn.simpleicons.org/selenium/43B02A"></div>
+            <h4>Sandman OSINT</h4>
+            <p>Public data aggregation, passive recon, footprint mapping.</p>
+            <a href="https://github.com/th3-v3ng34nc3" target="_blank" class="car-l"><i class="fab fa-github"></i> Source</a>
+          </div>
+        </div>
+        <div class="car-panel">
+          <div class="car-head"><span class="car-d"></span><span class="car-n">security-veda</span><span class="car-b live">LIVE</span></div>
+          <div class="car-body">
+            <div class="car-ico"><i class="fas fa-book-skull"></i></div>
+            <h4>Security Veda</h4>
+            <p>Curated security knowledge platform. Learning paths for cloud security, K8s hardening, DevSecOps &amp; compliance.</p>
+            <a href="https://th3-v3ng34nc3.github.io/SecurityVeda/" target="_blank" class="car-l"><i class="fas fa-external-link-alt"></i> Live</a>
+          </div>
+        </div>
+        <div class="car-panel">
+          <div class="car-head"><span class="car-d"></span><span class="car-n">se-training</span><span class="car-b live">LIVE</span></div>
+          <div class="car-body">
+            <div class="car-tech"><img src="https://cdn.simpleicons.org/typescript/3178C6"><img src="https://cdn.simpleicons.org/react/61DAFB"><img src="https://cdn.simpleicons.org/tailwindcss/06B6D4"></div>
+            <h4>SE Training Plan</h4>
+            <p>Training tracker — goal-setting, dashboards, cert roadmaps.</p>
+            <a href="https://th3-v3ng34nc3.github.io/SE-Training-Plan/" target="_blank" class="car-l"><i class="fas fa-external-link-alt"></i> Demo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="car-controls">
+      <button class="car-btn" id="carPrev"><i class="fas fa-chevron-left"></i></button>
+      <span class="car-hint">drag the ring</span>
+      <button class="car-btn" id="carNext"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </section>
+
+  <!-- ═══════════════ COMMENDATIONS (radial) ═══════════════ -->
+  <section class="sx" id="commend">
+    <span class="sx-idx">05</span>
+    <div class="sx-tag">Commendations</div>
+    <h2 class="sx-h">Recognition <em>Array</em></h2>
+    <p class="sx-p">Six entries pulled from the record, arranged around the seal.</p>
+
+    <div class="radial">
+      <div class="radial-orbit"></div>
+      <div class="radial-core"><i class="fas fa-shield-halved"></i><span>Verified</span></div>
+
+      <div class="radial-item" style="--ang:0deg"><div class="ri-inner"><div class="n">01</div><div class="i"><i class="fas fa-trophy"></i></div><h4>Employee of the Month ×2</h4><p>Recognised twice for exceptional dedication at AccuKnox.</p></div></div>
+      <div class="radial-item" style="--ang:60deg"><div class="ri-inner"><div class="n">02</div><div class="i"><i class="fas fa-medal"></i></div><h4>Most Dedicated Employee</h4><p>Quarterly honour for exemplary customer security management.</p></div></div>
+      <div class="radial-item" style="--ang:120deg"><div class="ri-inner"><div class="n">03</div><div class="i"><i class="fas fa-file-contract"></i></div><h4>Compliance Framework Integration</h4><p>DPDP, RBI CSF, SAMA CSF, SEBI CSCRF, CIS &amp; ISO 27001 into the CSPM product.</p></div></div>
+      <div class="radial-item" style="--ang:180deg"><div class="ri-inner"><div class="n">04</div><div class="i"><i class="fas fa-robot"></i></div><h4>Automated Compliance Engine</h4><p>CIS/STIG engine — cut manual audit effort 80% across 200+ systems.</p></div></div>
+      <div class="radial-item" style="--ang:240deg"><div class="ri-inner"><div class="n">05</div><div class="i"><i class="fas fa-satellite-dish"></i></div><h4>Centralised SIEM</h4><p>Implemented for real-time threat detection and faster incident response.</p></div></div>
+      <div class="radial-item" style="--ang:300deg"><div class="ri-inner"><div class="n">06</div><div class="i"><i class="fas fa-crosshairs"></i></div><h4>Top 1% — TryHackMe</h4><p>Sustained practical pentesting ranking, top percentile globally.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ UPLINK (contact) ═══════════════ -->
+  <section class="sx" id="uplink">
+    <span class="sx-idx">06</span>
+    <div class="sx-tag">Uplink</div>
+    <h2 class="sx-h">Open a <em>Channel</em></h2>
+    <p class="sx-p">One of these reaches me through the void.</p>
+
+    <div class="up-list">
+      <a href="tel:+916207338299" class="up-row"><span class="up-idx">01</span><div class="up-ico"><i class="fas fa-phone"></i></div><div class="up-info"><span>Call</span><p>+91 6207338299</p></div><i class="fas fa-arrow-right up-ar"></i></a>
+      <a href="mailto:adityasinghusa1@gmail.com" class="up-row"><span class="up-idx">02</span><div class="up-ico"><img loading="lazy" src="img/email.webp"></div><div class="up-info"><span>Write</span><p>adityasinghusa1@gmail.com</p></div><i class="fas fa-arrow-right up-ar"></i></a>
+      <a href="https://www.linkedin.com/in/th3-v3ng34nc3/" target="_blank" class="up-row"><span class="up-idx">03</span><div class="up-ico"><img loading="lazy" src="img/LinkedIn.svg"></div><div class="up-info"><span>LinkedIn</span><p>th3-v3ng34nc3</p></div><i class="fas fa-arrow-right up-ar"></i></a>
+      <a href="https://github.com/th3-v3ng34nc3" target="_blank" class="up-row"><span class="up-idx">04</span><div class="up-ico"><img loading="lazy" src="img/github.png"></div><div class="up-info"><span>GitHub</span><p>th3-v3ng34nc3</p></div><i class="fas fa-arrow-right up-ar"></i></a>
+      <a href="https://tryhackme.com/p/th3-v3ng34nc3" target="_blank" class="up-row"><span class="up-idx">05</span><div class="up-ico"><img loading="lazy" src="img/tryhackme.webp"></div><div class="up-info"><span>TryHackMe</span><p>Top 1% — Active</p></div><i class="fas fa-arrow-right up-ar"></i></a>
+      <a href="img/cv.html" target="_blank" class="up-row"><span class="up-idx">06</span><div class="up-ico"><img loading="lazy" src="img/Resume-CV.png"></div><div class="up-info"><span>Resume</span><p>View or Download</p></div><i class="fas fa-arrow-right up-ar"></i></a>
+    </div>
+
+    <!-- 3D robot sign-off (LottieFiles · free AI Robot Thumbs Up) -->
+    <div class="up-sign">
+      <div class="up-sign-bot"><dotlottie-wc src="https://assets-v2.lottiefiles.com/a/252b1d7c-b7ba-47c8-b10c-08e76bc6a298/2D2eqAs8rl.lottie" autoplay loop></dotlottie-wc></div>
+      <p>Transmission received. Standing by for uplink.</p>
+    </div>
+  </section>
+
+  <footer class="sx-foot">
+    <p>Aditya Raj · th3-v3ng34nc3 · &copy; 2026</p>
+    <p><span class="mk">●</span> Built in the void between stars</p>
+  </footer>
+</main>
+
+<button id="btt" class="glass"><i class="fas fa-arrow-up"></i></button>
+
+</div><!-- /.app-frame -->
+
+<!-- Three.js — WebGL spatial scenes -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- GSAP + ScrollTrigger — scroll choreography -->
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<!-- Typed.js — role line -->
+<script defer src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+<!-- dotLottie — 3D animated robot characters (LottieFiles) -->
+<script type="module" src="https://unpkg.com/@lottiefiles/dotlottie-wc@latest/dist/dotlottie-wc.js"></script>
+
+<!-- defer preserves document order among deferred scripts, so THREE/gsap/
+     ScrollTrigger/Typed are all defined globally before this runs, while
+     letting the browser fetch all five in parallel instead of one at a
+     time — same behavior, meaningfully faster on the network. -->
+<script defer src="script.js"></script>
+</body>
+</html>
